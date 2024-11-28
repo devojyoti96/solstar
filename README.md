@@ -51,21 +51,18 @@ To install and set up **SOLSTAR**, follow these steps:
 
 ### Making Spectral Image Cube
 1. Parameters:
-    ```
-    bash
-  --obs_date=String     Observation date (yyyy-mm-dd)
-  --obs_time=String     Observation time (hh:mm:ss)
-  --workdir=String      Working directory path
-  --start_freq=Float    Start frequency in MHz
-  --end_freq=Float      End frequency in MHz
-  --freqres=Float       Frequency resolution in MHz
-  --observatory=String  Observatory name (MeerKAT, uGMRT, eOVSA, ASKAP, FASR, SKAO-MID)
-  --obs_lat=Float       Observatory latitude in degree
-  --obs_lon=Float       Observatory longitude in degree
-  --obs_alt=Float       Observatory altitude in meter
-  --output_product=String Output product, TB: for brightness temperature map, flux: for flux density map
+  --obs_date=String     Observation date (yyyy-mm-dd)  
+  --obs_time=String     Observation time (hh:mm:ss)  
+  --workdir=String      Working directory path  
+  --start_freq=Float    Start frequency in MHz  
+  --end_freq=Float      End frequency in MHz  
+  --freqres=Float       Frequency resolution in MHz  
+  --observatory=String  Observatory name (MeerKAT, uGMRT, eOVSA, ASKAP, FASR, SKAO-MID)  
+  --obs_lat=Float       Observatory latitude in degree  
+  --obs_lon=Float       Observatory longitude in degree  
+  --obs_alt=Float       Observatory altitude in meter  
+  --output_product=String Output product, TB: for brightness temperature map, flux: for flux density map  
   --make_cube=Boolean   Make spectral cube or keep spectral slices seperate
-  ```
   
 2. Run the simulation for a specific observatory (MeerKAT) for producing brightness temperature spectral cube:
    ```bash
