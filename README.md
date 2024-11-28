@@ -49,56 +49,41 @@ To install and set up **SOLSTAR**, follow these steps:
 
 ## 🛠️ Usage
 
-### Basic Simulation
-1. Edit the configuration file (`config.json`) to specify your simulation parameters:
-   - Frequency range (e.g., `1 GHz - 10 GHz`)
-   - Time intervals
-   - Solar activity models
-2. Run the simulation:
+### Making Spectral Image Cube
+1. Parameters:
+  --obs_date=String     Observation date (yyyy-mm-dd)
+  --obs_time=String     Observation time (hh:mm:ss)
+  --workdir=String      Working directory path
+  --start_freq=Float    Start frequency in MHz
+  --end_freq=Float      End frequency in MHz
+  --freqres=Float       Frequency resolution in MHz
+  --observatory=String  Observatory name (MeerKAT, uGMRT, eOVSA, ASKAP, FASR, SKAO-MID)
+  --obs_lat=Float       Observatory latitude in degree
+  --obs_lon=Float       Observatory longitude in degree
+  --obs_alt=Float       Observatory altitude in meter
+  --output_product=String Output product, TB: for brightness temperature map, flux: for flux density map
+  --make_cube=Boolean   Make spectral cube or keep spectral slices seperate
+  
+2. Run the simulation for a specific observatory (MeerKAT) for producing brightness temperature spectral cube:
    ```bash
-   python starsim.py --config config.json
+   run_solstar --obs_date 2023-12-04 --obs_time 06:30:00 --workdir $HOME/simulation_try --start_freq 850 --end_freq 1700 --freqres 10.0 --observatory MeerKAT --output_product TB --make_cube True
    ```
-3. Access the results in the `output/` folder.
+3. Access the results in the `$HOME/simulation_try` folder.
 
-### Advanced Options
-- Enable real-time visualization:
-  ```bash
-  python starsim.py --visualize
-  ```
-- Export data in a specific format (e.g., FITS):
-  ```bash
-  python starsim.py --output-format fits
-  ```
-- Debug mode for detailed logs:
-  ```bash
-  python starsim.py --debug
-  ```
-
----
-
-## 📖 Documentation
-
-For detailed documentation, including parameter definitions, examples, and advanced configuration guides, visit the [STARSIM Documentation](https://your-documentation-url.com).
-
----
-
-## 🤝 Contributing
-
-Contributions to **STARSIM** are welcome! Here’s how you can help:
-1. Fork the repository.
-2. Create a branch for your feature or fix:
+### Other examples
+1. Run the simulation for a geodetic location (latitude = 30deg, longitude = 20deg, altitude = 100 meter) for producing brightness temperature spectral slices:
    ```bash
-   git checkout -b feature-name
+   run_solstar --obs_date 2023-12-04 --obs_time 06:30:00 --workdir $HOME/simulation_try --start_freq 850 --end_freq 1700 --freqres 10.0 --obs_lat 30.0  --obs_lon 20.0 --obs_alt 100.0 output_product TB --make_cube False
    ```
-3. Commit your changes and push:
+   
+2. Run the simulation for a specific observatory (MeerKAT) for producing flux density spectral cube:
    ```bash
-   git commit -m "Description of feature"
-   git push origin feature-name
+   run_solstar --obs_date 2023-12-04 --obs_time 06:30:00 --workdir $HOME/simulation_try --start_freq 850 --end_freq 1700 --freqres 10.0 --observatory MeerKAT --output_product flux --make_cube True
    ```
-4. Submit a pull request for review.
-
-Please ensure your contributions align with our coding standards and include relevant documentation.
-
+3. Run the simulation for a specific observatory (uGMRT) for producing flux density spectral slices:
+   ```bash
+   run_solstar --obs_date 2023-12-04 --obs_time 06:30:00 --workdir $HOME/simulation_try --start_freq 850 --end_freq 1700 --freqres 10.0 --observatory uGMRT --output_product flux --make_cube False
+   ```
 ---
 
 ## 📜 License
@@ -111,7 +96,6 @@ This project is licensed under the [MIT License](LICENSE).
 
 - Developed by the **Devojyoti Kansabanik** and **Surajit Mondal**.
 - Inspired by cutting-edge advancements in GHz solar radio spectral analysis.
-- Special thanks to developers of  and the scientific community for their support.
 
 ---
 
