@@ -1,0 +1,4 @@
+[submodule "solstar/GRFF"]
+	path = solstar/GRFF
+	url = git@github.com:devojyoti96/solstar.git
+
