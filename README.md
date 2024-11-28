@@ -46,7 +46,7 @@ To install and set up **SOLSTAR**, follow these steps:
 ## 🛠️ Usage
 
 ### Making Spectral Image Cube
-### Steps to install from PyPI   
+
 1.  To launch the application:
    ```bash
    run_solstar 
