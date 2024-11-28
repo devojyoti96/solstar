@@ -57,7 +57,8 @@ To install and set up **SOLSTAR**, follow these steps:
    run_solstar -h
    ```
   
-3. It will display the parameters:
+3. It will display the parameters:  
+
   --obs_date=String     Observation date (yyyy-mm-dd)  
   --obs_time=String     Observation time (hh:mm:ss)  
   --workdir=String      Working directory path  
