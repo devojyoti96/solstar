@@ -24,10 +24,12 @@ To install and set up **SOLSTAR**, follow these steps:
 - Git
 - Required Python libraries (listed in `requirements.txt`)
 
-### From PyPI
-- pip install solstar
+### Steps to install from PyPI
+   ```bash
+   pip install solstar
+   ```
 
-### Steps
+### Steps to install from repository
 
 1. Clone the repository:
    ```bash
