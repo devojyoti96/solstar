@@ -109,7 +109,7 @@ def simulate_GRFF(dem_file, outfile, start_freq, end_freq):
         15, dtype="double"
     )  # array of voxel parameters - for a single voxel
     ParmLocal[0] = (
-        depth_cm / NSteps
+        depth_cm 
     )  # source depth, cm (total depth - the depths for individual voxels will be computed later)
     ParmLocal[1] = 1e6  # plasma temperature, K (not used in this example)
     ParmLocal[2] = (
