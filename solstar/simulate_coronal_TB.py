@@ -59,6 +59,8 @@ def simulate_GRFF(dem_file, outfile, start_freq, end_freq):
     Nf = int(
         (np.log10(end_freq) - np.log10(start_freq)) / 0.01
     )  # number of frequencies
+    if Nf<10:
+        Nf=10
     NSteps = 1  # number of nodes along the line-of-sight
     # Conversion units
     sfu2cgs = 1e-19

@@ -169,15 +169,19 @@ def make_spectral_map(total_tb_file, start_freq, end_freq, freqres, output_unit=
         print(
             "WARNING! Frequency range is outside data cube range. Extrapolation will be done.\n"
         )
+    if len(freqs)<5:
+        interp_mode="linear"
+    else:
+        interp_mode="cubic" 
     for i in range(tb.shape[0]):
         for j in range(tb.shape[1]):
             if output_unit == "TB":
                 f = interp1d(
-                    freqs, tb[i, j, :], kind="cubic", fill_value="extrapolate"
+                    freqs, tb[i, j, :], kind=interp_mode, fill_value="extrapolate"
                 )  # Spline interpolation
             else:
                 f = interp1d(
-                    freqs, flux[i, j, :], kind="cubic", fill_value="extrapolate"
+                    freqs, flux[i, j, :], kind=interp_mode, fill_value="extrapolate"
                 )  # Spline interpolation
             interpolated_array[i, j, :] = f(new_freqs)
     print("Spectral image cube at user given frequency is ready.\n")
