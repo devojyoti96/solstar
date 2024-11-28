@@ -1,4 +1,4 @@
-import os, glob, gc
+import os, glob, gc, time
 from optparse import OptionParser
 from solstar.aia_download_n_calib import download_aia_data
 
@@ -39,6 +39,7 @@ def get_observatory_info(observatory_name):
         return lat,lon,alt
 
 def main():
+    start_time=time.time()
     usage = "Simulate radio spectral cube at GHz frequencies at closest user-given time"
     parser = OptionParser(usage=usage)
     parser.add_option(
@@ -81,6 +82,13 @@ def main():
         dest="freqres",
         default=-1,
         help="Frequency resolution in MHz",
+        metavar="Float",
+    )
+    parser.add_option(
+        "--spatial_res",
+        dest="resolution",
+        default=5.0,
+        help="Spatial resolution in arcseconds",
         metavar="Float",
     )
     parser.add_option(
@@ -175,7 +183,7 @@ def main():
     dem_cmd = (
         "gen_dem --fits_dir "
         + level15_dir
-        + " --fov -2000,2000,-2000,2000 --avg_length 8 --outfile "
+        + " --fov -2000,2000,-2000,2000 --resolution "+str(options.resolution)+" --outfile "
         + str(options.workdir)
         + "/DEM.h5"
     )
@@ -280,4 +288,6 @@ def main():
     os.system(spectral_cube_cmd)
     print("#################\n")
     gc.collect()
+    end_time=time.time()
+    print ("Total run time: "+str(round(end_time-start_time,1))+"s\n")
     return 0

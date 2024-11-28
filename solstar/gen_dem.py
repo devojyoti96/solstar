@@ -10,7 +10,7 @@ from astropy.coordinates import SkyCoord
 from optparse import OptionParser
 
 
-def make_dem(fits_files, outfile, fov, avg_length):
+def make_dem(fits_files, outfile, fov, resolution):
     """
     Make DEM map using AIA multi-wavelength images
     Parameters
@@ -21,8 +21,8 @@ def make_dem(fits_files, outfile, fov, avg_length):
         Output DEM file name (.h5')
     fov : str
         Field of view to be used in pixels (xblc,xtrc,yblc,ytrc)
-    avg_length : int
-        Number of pixels to spatial average
+    resolution : float
+        Spatial resolution in arcsecond
     Returns
     -------
     str
@@ -31,6 +31,11 @@ def make_dem(fits_files, outfile, fov, avg_length):
     print("########################")
     print("Producing DEM map ......")
     print("########################")
+    if resolution<=0.6:
+        resolution=0.6
+    avg_length=int(resolution/0.6) # 0.6arcsecond in AIA image pixel resolution  
+    if avg_length<1:
+        avg_length=1  
     pwd = os.getcwd()
     if os.path.dirname(outfile) == "":
         outfile = pwd + "/" + outfile
@@ -186,11 +191,11 @@ def main():
         metavar="String",
     )
     parser.add_option(
-        "--avg_length",
-        dest="avg_length",
-        default=3,
-        help="Spatial averaging in pixel units",
-        metavar="Integer",
+        "--resolution",
+        dest="resolution",
+        default=5.0,
+        help="Spatial resolution in arcsecond (should be more than 0.6 arcsecond)",
+        metavar="Float",
     )
     (options, args) = parser.parse_args()
     if options.fits_dir == None:
@@ -211,7 +216,7 @@ def main():
             print("Please provide AIA images at all wavelengths.")
             return 1
     dem_file = make_dem(
-        filtered_fits_files, options.outfile, options.fov, int(options.avg_length)
+        filtered_fits_files, options.outfile, options.fov, float(options.resolution)
     )
     if dem_file != None:
         print("DEM file name: ", dem_file)

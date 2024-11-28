@@ -57,6 +57,7 @@ To install and set up **SOLSTAR**, follow these steps:
   --start_freq=Float    Start frequency in MHz  
   --end_freq=Float      End frequency in MHz  
   --freqres=Float       Frequency resolution in MHz  
+  --spatial_res=Float   Spatial resolution in arcseconds  
   --observatory=String  Observatory name (MeerKAT, uGMRT, eOVSA, ASKAP, FASR, SKAO-MID)  
   --obs_lat=Float       Observatory latitude in degree  
   --obs_lon=Float       Observatory longitude in degree  
@@ -64,23 +65,23 @@ To install and set up **SOLSTAR**, follow these steps:
   --output_product=String Output product, TB: for brightness temperature map, flux: for flux density map  
   --make_cube=Boolean   Make spectral cube or keep spectral slices seperate
   
-2. Run the simulation for a specific observatory (MeerKAT) for producing brightness temperature spectral cube:
+2. Run the simulation for a specific observatory (MeerKAT) for producing brightness temperature spectral cube at 0.6 arcsecond resolution:
    ```bash
-   run_solstar --obs_date 2023-12-04 --obs_time 06:30:00 --workdir $HOME/simulation_try --start_freq 850 --end_freq 1700 --freqres 10.0 --observatory MeerKAT --output_product TB --make_cube True
+   run_solstar --obs_date 2023-12-04 --obs_time 06:30:00 --workdir $HOME/simulation_try --start_freq 850 --end_freq 1700 --freqres 10.0 --spatial_res 0.6 --observatory MeerKAT --output_product TB --make_cube True
    ```
 3. Access the results in the `$HOME/simulation_try` folder.
 
 ### Other examples
-1. Run the simulation for a geodetic location (latitude = 30deg, longitude = 20deg, altitude = 100 meter) for producing brightness temperature spectral slices:
+1. Run the simulation for a geodetic location (latitude = 30deg, longitude = 20deg, altitude = 100 meter) for producing brightness temperature spectral slices at 5.0 arcsecond resolution:
    ```bash
    run_solstar --obs_date 2023-12-04 --obs_time 06:30:00 --workdir $HOME/simulation_try --start_freq 850 --end_freq 1700 --freqres 10.0 --obs_lat 30.0  --obs_lon 20.0 --obs_alt 100.0 output_product TB --make_cube False
    ```
    
-2. Run the simulation for a specific observatory (MeerKAT) for producing flux density spectral cube:
+2. Run the simulation for a specific observatory (MeerKAT) for producing flux density spectral cube at 4.0 arcsecond spatial resolution:
    ```bash
-   run_solstar --obs_date 2023-12-04 --obs_time 06:30:00 --workdir $HOME/simulation_try --start_freq 850 --end_freq 1700 --freqres 10.0 --observatory MeerKAT --output_product flux --make_cube True
+   run_solstar --obs_date 2023-12-04 --obs_time 06:30:00 --workdir $HOME/simulation_try --start_freq 850 --end_freq 1700 --freqres 10.0 --spatial_res 4.0 --observatory MeerKAT --output_product flux --make_cube True
    ```
-3. Run the simulation for a specific observatory (uGMRT) for producing flux density spectral slices:
+3. Run the simulation for a specific observatory (uGMRT) for producing flux density spectral slices at 5.0 arcsecond spatial resolution:
    ```bash
    run_solstar --obs_date 2023-12-04 --obs_time 06:30:00 --workdir $HOME/simulation_try --start_freq 850 --end_freq 1700 --freqres 10.0 --observatory uGMRT --output_product flux --make_cube False
    ```
