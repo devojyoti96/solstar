@@ -41,21 +41,23 @@ To install and set up **SOLSTAR**, follow these steps:
    ```bash
    pip install -r requirements.txt
    ```
-3. Preview parameters of the application:
-   ```bash
-   run_solstar -h
-   ```
-   
-4. Launch the application:
-   ```bash
-   run_solstar 
-   ```
 ---
 
 ## 🛠️ Usage
 
 ### Making Spectral Image Cube
-1. Parameters:
+### Steps to install from PyPI   
+1.  To launch the application:
+   ```bash
+   run_solstar 
+   ```
+   
+2. Preview parameters of the application:
+   ```bash
+   run_solstar -h
+   ```
+  
+3. It will display the parameters:
   --obs_date=String     Observation date (yyyy-mm-dd)  
   --obs_time=String     Observation time (hh:mm:ss)  
   --workdir=String      Working directory path  
@@ -70,11 +72,11 @@ To install and set up **SOLSTAR**, follow these steps:
   --output_product=String Output product, TB: for brightness temperature map, flux: for flux density map  
   --make_cube=Boolean   Make spectral cube or keep spectral slices seperate
   
-2. Run the simulation for a specific observatory (MeerKAT) for producing brightness temperature spectral cube at 0.6 arcsecond resolution:
+4. Run the simulation for a specific observatory (MeerKAT) for producing brightness temperature spectral cube at 0.6 arcsecond resolution:
    ```bash
    run_solstar --obs_date 2023-12-04 --obs_time 06:30:00 --workdir $HOME/simulation_try --start_freq 850 --end_freq 1700 --freqres 10.0 --spatial_res 0.6 --observatory MeerKAT --output_product TB --make_cube True
    ```
-3. Access the results in the `$HOME/simulation_try` folder.
+5. Access the results in the `$HOME/simulation_try` folder.
 
 ### Other examples
 1. Run the simulation for a geodetic location (latitude = 30deg, longitude = 20deg, altitude = 100 meter) for producing brightness temperature spectral slices at 5.0 arcsecond resolution:
@@ -90,6 +92,16 @@ To install and set up **SOLSTAR**, follow these steps:
    ```bash
    run_solstar --obs_date 2023-12-04 --obs_time 06:30:00 --workdir $HOME/simulation_try --start_freq 850 --end_freq 1700 --freqres 10.0 --observatory uGMRT --output_product flux --make_cube False
    ```
+---
+
+## Current ongoing and future developments
+
+1. Simulation of visibilties for different array configurations
+
+2. Inclusion of magnetic field model for gyroresonance simulation
+
+3. Simulation of flare times including gyrosynchrotron simulation
+
 ---
 
 ## 📜 License

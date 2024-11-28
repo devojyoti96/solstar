@@ -1,7 +1,7 @@
 import astropy.units as u, os, glob, time
 from sunpy.net import Fido, attrs as a
 from sunpy.map import Map
-from aiapy.calibrate import register
+from aiapy.calibrate import *
 from sunpy import config
 from pathlib import Path
 from optparse import OptionParser
@@ -122,17 +122,29 @@ def download_aia_data(
         print("############################")
 
         for lev1_file in level1_files:
-            try:
+            try: #TODO: pointing correction and degradation correction
                 # Load the Level 1 data as a SunPy Map
                 aia_map = Map(lev1_file)
-                # Step 4.1: Register the map (align and scale it)
-                registered_map = register(aia_map)
-                # Step 4.2: Normalize by exposure time
+                # Step 1: Pointing correction
+                try:    
+                    pointing_corrected_map=update_pointing(aia_map)
+                except:
+                    print ("WARNING! AIA pointing correction could not be done.\n")
+                    pointing_corrected_map=aia_map
+                # Step 2: respike image
+                try:
+                   respiked_image=respike(pointing_corrected_map)
+                except:
+                    print ("WARNING! Re-spiking fained.\n")
+                    respiked_image=pointing_corrected_map  
+                # Step 3: register (we are skipping PSF deconvolution)
+                registered_map = register(respiked_image)
+                # Step 4: Normalize by exposure time
                 normalized_data = (
                     registered_map.data / registered_map.exposure_time.to(u.s).value
                 )
                 normalized_map = Map(normalized_data, registered_map.meta)
-                # Step 4.3: Save the calibrated Level 1.5 map
+                # Step 5: Save the calibrated Level 1.5 map
                 x = os.path.basename(lev1_file).split(".")
                 output_file = str(
                     level15_dir_name

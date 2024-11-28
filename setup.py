@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='solstar',  # Replace with your package name
-    version='0.1.0',    # Replace with your version
+    version='0.1.2',    # Replace with your version
     author='Devojyoti Kansabanik',
     author_email='dkansabanik@ucar.edu',
     description='A package to simulate GHz radio Sun spectral image cubes',
