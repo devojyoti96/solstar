@@ -114,7 +114,7 @@ This project is licensed under the [MIT License](LICENSE).
 ## 🙌 Acknowledgments
 
 - Developed by the **Devojyoti Kansabanik** and **Surajit Mondal**.
-- Inspired by cutting-edge advancements in GHz solar radio spectral analysis.
+- Inspired by cutting-edge advancements in GHz solar radio spectroscopic imaging and analysis.
 
 ---
 
