@@ -1,14 +1,14 @@
 
 # SOLSTAR : SOLar Simulation of Thermal and Active Radio emissions
 
-**SOLSTAR** (**SOL**ar **S**imulation of **T**hermal and **A**ctive **R**adio emissions) is a simulation tool for simulating solar radio emissions at GHz frequencies. It is designed to simulate spectral image cube at user given frequency range and frequency resolution at any observation date based on extreme ultraviolet observations of the Sun.
+**SOLSTAR** (**SOL**ar **S**imulation of **T**hermal and **A**ctive **R**adio emissions) is a simulation tool for simulating solar radio emissions at GHz frequencies. It is designed to simulate spectral image cube at user given frequency range and frequency resolution at any observation date based on extreme ultraviolet observations of the Sun. It is also capable of simulate visibilities for a given radio interferometric array configuration.
 
 ---
 
 ## 🌟 Features
 
 - **GHz Frequency Simulation**: Simulate solar radio emissions in the GHz range.
-- **Visibility simulation**: Simulate visibility of a given radio interferometric array.
+- **Visibility simulation**: Simulate visibility of a given radio interferometric array (Not ready yet).
 - **Customizable Parameters**: Configure frequency ranges, frequency and temporal resolutions, and spatial resolution. 
 - **Data Export**: Export simulation images in FITS and visibilities in CASA measurement format.
 - **Modular Architecture**: Integrates seamlessly with other solar physics tools and workflows.
