@@ -3,6 +3,15 @@
 
 **SOLSTAR** (**SOL**ar **S**imulation of **T**hermal and **A**ctive **R**adio emissions) is a simulation tool for simulating solar radio emissions at GHz frequencies. It is designed to simulate spectral image cube at user given frequency range and frequency resolution at any observation date based on extreme ultraviolet observations of the Sun. It is also capable of simulate visibilities for a given radio interferometric array configuration.
 
+# Important Notice: 
+
+SDO/AIA data server at JSOC is damanged due to flood and currently down. It may require some time to fix it. During this period, AIA data download and corresponding simultion for some observing dates may be not successful. If you get the following message, run simulation for this timestamp few days after.
+    ```
+    bash
+    Exiting solstar ...
+    Error in downloading AIA data : All channels did not download
+    ```
+    
 ---
 
 ## 🌟 Features
