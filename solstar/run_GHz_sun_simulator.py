@@ -169,11 +169,17 @@ def main():
         outdir_prefix=options.workdir + "/aia_data",
     )
     if msg != 0:
-        print("Error in downloading all channels AIA data.")
+        print("############################")
+        print("Exiting solstar ...\n")
+        print("Error in downloading AIA data : All channels did not download.")
+        print("############################")
         return msg
     output_files = glob.glob(level15_dir + "/*")
     if len(output_files) < 7:
-        print("Error in downloading all channels AIA data.")
+        print("############################")
+        print("Exiting solstar ...\n")
+        print("Error in downloading AIA data : All channels did not download.")
+        print("############################")
         return 1
     aia_304 = glob.glob(level15_dir + "/*304*")
 

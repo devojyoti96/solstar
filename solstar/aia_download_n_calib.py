@@ -95,7 +95,10 @@ def download_aia_data(
             )
             # Check if results are found
             if len(search_result) == 0:
-                print("No data found for the specified time range and wavelength.")
+                print("############################")
+                print("Error in downloading AIA data : No data is found in the given timerange.")
+                print("############################")
+                return 1,None
             else:
                 # Step 3: Download the data
                 print(
@@ -129,13 +132,13 @@ def download_aia_data(
                 try:    
                     pointing_corrected_map=update_pointing(aia_map)
                 except:
-                    print ("WARNING! AIA pointing correction could not be done.\n")
+                    print ("WARNING! AIA pointing correction could not be done.")
                     pointing_corrected_map=aia_map
                 # Step 2: respike image
                 try:
                    respiked_image=respike(pointing_corrected_map)
                 except:
-                    print ("WARNING! Re-spiking fained.\n")
+                    print ("WARNING! Re-spiking failed.")
                     respiked_image=pointing_corrected_map  
                 # Step 3: register (we are skipping PSF deconvolution)
                 registered_map = register(respiked_image)
@@ -155,6 +158,7 @@ def download_aia_data(
                 )
                 normalized_map.save(output_file, overwrite=True)
                 print(f"Calibrated Level 1.5 data saved to: {output_file}")
+                print("############################")
             except Exception as e:
                 print(f"Failed to process {lev1_file}: {e}")
         print("############################")
@@ -168,7 +172,7 @@ def download_aia_data(
         return 0, level15_dir_name
     else:
         print("############################")
-        print("Error in downloading all channels.")
+        print("Error in downloading AIA data : All channels did not download.")
         print("############################")
         gc.collect()
         return 1, None
