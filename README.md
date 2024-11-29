@@ -6,6 +6,7 @@
 # Important Notice: 
 
 SDO/AIA data server at JSOC is damanged due to flood and currently down. It may require some time to fix it. During this period, AIA data download and corresponding simultion for some observing dates may be not successful. If you get the following message, run simulation for this timestamp few days after.
+   
     ```
     Exiting solstar ...
     Error in downloading AIA data : All channels did not download
