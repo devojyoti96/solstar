@@ -38,7 +38,7 @@ To install and set up **SOLSTAR**, follow these steps:
    pip install solstar
    ```
 
-### Steps to install from repository
+### Steps to install from the repository
 
 1. Clone the repository:
    ```bash
