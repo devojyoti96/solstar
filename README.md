@@ -50,6 +50,11 @@ To install and set up **SOLSTAR**, follow these steps:
    ```bash
    pip install -r requirements.txt
    ```
+   
+3. Install the application:
+   ```bash
+   pip install ./
+   ```   
 ---
 
 ## 🛠️ Usage
