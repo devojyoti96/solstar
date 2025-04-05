@@ -86,7 +86,7 @@ def download_aia_data(
                 print("#####################################")
             elif len(w_files) > 1:
                 for i in range(1, len(w_files)):
-                    os.systsem("rm -rf " + w_files[i])
+                    os.system("rm -rf " + w_files[i])
             time.sleep(1)
         if use_alt_timerange == True:
             time_range = alt_time_range
