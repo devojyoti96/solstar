@@ -134,19 +134,20 @@ def download_aia_data(
                 except:
                     print ("WARNING! AIA pointing correction could not be done.")
                     pointing_corrected_map=aia_map
-                # Step 2: respike image
+                # Step 2: register (we are skipping PSF deconvolution)
+                registered_map = register(pointing_corrected_map)
+                # Step 3: instrument degradation correction
                 try:
-                   respiked_image=respike(pointing_corrected_map)
+                    corrected_map=correct_degradation(registered_map)
                 except:
-                    print ("WARNING! Re-spiking failed.")
-                    respiked_image=pointing_corrected_map  
-                # Step 3: register (we are skipping PSF deconvolution)
-                registered_map = register(respiked_image)
+                    print ("WARNING! Instrument degradation could not be corrected.")
+                    corrected_map=registered_map
+                
                 # Step 4: Normalize by exposure time
                 normalized_data = (
-                    registered_map.data / registered_map.exposure_time.to(u.s).value
+                    corrected_map.data / corrected_map.exposure_time.to(u.s).value
                 )
-                normalized_map = Map(normalized_data, registered_map.meta)
+                normalized_map = Map(normalized_data, corrected_map.meta)
                 # Step 5: Save the calibrated Level 1.5 map
                 x = os.path.basename(lev1_file).split(".")
                 output_file = str(
