@@ -124,6 +124,7 @@ def demmap_pos(
     ednin = np.zeros([nf])
 
     # do we have enough DEM's to make parallel make sense?
+    print (na)
     if na >= 200:
         n_par = 100
         niter = int(np.floor((na) / n_par))
@@ -147,47 +148,48 @@ def demmap_pos(
                         warn=warn,
                         l_emd=l_emd,
                     )
-                    for i in np.arange(niter)
+                    for i in range(niter)
                 ]
-                kwargs = {
-                    "total": len(futures),
-                    "unit": " x10^2 DEM",
-                    "unit_scale": True,
-                    "leave": True,
-                }
-                for f in tqdm(as_completed(futures), **kwargs):
-                    pass
+
+                for f in tqdm(as_completed(futures), total=len(futures), unit=" x10^2 DEM", unit_scale=True, leave=True):
+                    try:
+                        f.result()
+                    except Exception as e:
+                        print("Parallel task error:", e)
+
             for i, f in enumerate(futures):
-                # store the outputs in arrays
-                dem[i * n_par : (i + 1) * n_par, :] = f.result()[0]
-                edem[i * n_par : (i + 1) * n_par, :] = f.result()[1]
-                elogt[i * n_par : (i + 1) * n_par, :] = f.result()[2]
-                chisq[i * n_par : (i + 1) * n_par] = f.result()[3]
-                dn_reg[i * n_par : (i + 1) * n_par, :] = f.result()[4]
-            # if there are any remaining dems then execute remainder in serial
-            if np.mod(na, niter * n_par) != 0:
-                i_start = niter * n_par
-                for i in range(na - i_start):
-                    result = dem_pix(
-                        dd[i_start + i, :],
-                        ed[i_start + i, :],
-                        rmatrix,
-                        logt,
-                        dlogt,
-                        glc,
-                        reg_tweak=reg_tweak,
-                        max_iter=max_iter,
-                        rgt_fact=rgt_fact,
-                        dem_norm0=dem_norm0[i_start + i, :],
-                        nmu=nmu,
-                        warn=warn,
-                        l_emd=l_emd,
-                    )
-                    dem[i_start + i, :] = result[0]
-                    edem[i_start + i, :] = result[1]
-                    elogt[i_start + i, :] = result[2]
-                    chisq[i_start + i] = result[3]
-                    dn_reg[i_start + i, :] = result[4]
+                result = f.result()
+                dem[i * n_par : (i + 1) * n_par, :] = result[0]
+                edem[i * n_par : (i + 1) * n_par, :] = result[1]
+                elogt[i * n_par : (i + 1) * n_par, :] = result[2]
+                chisq[i * n_par : (i + 1) * n_par] = result[3]
+                dn_reg[i * n_par : (i + 1) * n_par, :] = result[4]
+
+        # Remaining DEMs (serial)
+        i_start = niter * n_par
+        if na > i_start:
+            for i in range(na - i_start):
+                result = dem_pix(
+                    dd[i_start + i, :],
+                    ed[i_start + i, :],
+                    rmatrix,
+                    logt,
+                    dlogt,
+                    glc,
+                    reg_tweak=reg_tweak,
+                    max_iter=max_iter,
+                    rgt_fact=rgt_fact,
+                    dem_norm0=dem_norm0[i_start + i, :],
+                    nmu=nmu,
+                    warn=warn,
+                    l_emd=l_emd,
+                )
+                dem[i_start + i, :] = result[0]
+                edem[i_start + i, :] = result[1]
+                elogt[i_start + i, :] = result[2]
+                chisq[i_start + i] = result[3]
+                dn_reg[i_start + i, :] = result[4]
+
 
     # else we execute in serial
     else:
